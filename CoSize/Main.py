@@ -32,28 +32,28 @@ def load_image():
         global image
         image = cv2.imread(file_path)
         if image is not None:
-            # Get screen dimensions
+            
             screen_width = root.winfo_screenwidth()
             screen_height = root.winfo_screenheight()
 
-            # Get the original image dimensions
+            
             image_height, image_width = image.shape[:2]
 
-            # Resize image if it exceeds screen dimensions
+            
             if image_width > screen_width or image_height > screen_height:
                 aspect_ratio = min(screen_width / image_width, screen_height / image_height)
                 new_width = int(image_width * aspect_ratio)
                 new_height = int(image_height * aspect_ratio)
                 image = resize_image(image, new_width, new_height)
 
-            display_image(image, original_label)  # Display image in the Original Image label immediately
+            display_image(image, original_label)
             root.geometry(f"{2 * image.shape[1] + 100}x{image.shape[0] + 300}")
 
 def display_image(image, label):
     img_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     img_pil = Image.fromarray(img_rgb)
     img_tk = ImageTk.PhotoImage(img_pil)
-    label.config(image=img_tk, text="")  # Remove placeholder text
+    label.config(image=img_tk, text="")  
     label.image = img_tk
 
 def process_image():
